@@ -83,6 +83,33 @@ resource "null_resource" "issuer_letsencrypt_staging" {
   ]
 }
 
+resource "local_file" "issuer_letsencrypt" {
+  content = "${templatefile("${path.module}/config/issuer-letsencrypt.yaml", {
+      letsencrypt_email = "${var.letsencrypt_email}"
+      azure_service_principal_id = "${var.azure_service_principal_id}"
+      azure_client_secret_key_name = "${kubernetes_secret.azure_client_secret.metadata.0.name}"
+      azure_subscription_id = "${var.azure_subscription_id}"
+      azure_tenant_id = "${var.azure_tenant_id}"
+      azure_resource_group_name = "${var.azure_resource_group_name}"
+      azure_zone_name = "${var.azure_zone_name}"
+    })}"
+
+  filename = "${path.module}/issuer-letsencrypt.yaml"
+}
+
+
+resource "null_resource" "issuer_letsencrypt" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ${local_file.issuer_letsencrypt.filename}"
+  }
+
+  depends_on = [
+    "null_resource.dependency_getter",
+    "helm_release.cert_manager",
+    "local_file.issuer_letsencrypt"
+  ]
+}
+
 # Part of a hack for module-to-module dependencies.
 # https://github.com/hashicorp/terraform/issues/1178#issuecomment-449158607
 resource "null_resource" "dependency_setter" {
