@@ -9,6 +9,12 @@ resource "null_resource" "dependency_getter" {
   triggers = {
     my_dependencies = "${join(",", var.dependencies)}"
   }
+
+  lifecycle {
+    ignore_changes = [
+      triggers["my_dependencies"],
+    ]
+  }
 }
 
 resource "null_resource" "wait-dependencies" {
@@ -34,11 +40,11 @@ resource "null_resource" "apply_crds" {
 
 resource "helm_release" "cert_manager" {
   depends_on = ["null_resource.wait-dependencies", "null_resource.dependency_getter", "null_resource.apply_crds"]
-  name = "cert-manager"
+  name       = "cert-manager"
   repository = "${var.helm_repository}"
-  chart = "cert-manager"
-  version = "v${var.chart_version}"
-  namespace = "${var.helm_namespace}"
+  chart      = "cert-manager"
+  version    = "v${var.chart_version}"
+  namespace  = "${var.helm_namespace}"
 
   values = [
     "${var.values}",
@@ -47,7 +53,7 @@ resource "helm_release" "cert_manager" {
 
 resource "kubernetes_secret" "azure_client_secret" {
   metadata {
-    name = "azure-client-secret"
+    name      = "azure-client-secret"
     namespace = "${var.helm_namespace}"
   }
 
@@ -58,14 +64,14 @@ resource "kubernetes_secret" "azure_client_secret" {
 
 resource "local_file" "issuer_letsencrypt_staging" {
   content = "${templatefile("${path.module}/config/issuer-letsencrypt-staging.yaml", {
-      letsencrypt_email = "${var.letsencrypt_email}"
-      azure_service_principal_id = "${var.azure_service_principal_id}"
-      azure_client_secret_key_name = "${kubernetes_secret.azure_client_secret.metadata.0.name}"
-      azure_subscription_id = "${var.azure_subscription_id}"
-      azure_tenant_id = "${var.azure_tenant_id}"
-      azure_resource_group_name = "${var.azure_resource_group_name}"
-      azure_zone_name = "${var.azure_zone_name}"
-    })}"
+    letsencrypt_email            = "${var.letsencrypt_email}"
+    azure_service_principal_id   = "${var.azure_service_principal_id}"
+    azure_client_secret_key_name = "${kubernetes_secret.azure_client_secret.metadata.0.name}"
+    azure_subscription_id        = "${var.azure_subscription_id}"
+    azure_tenant_id              = "${var.azure_tenant_id}"
+    azure_resource_group_name    = "${var.azure_resource_group_name}"
+    azure_zone_name              = "${var.azure_zone_name}"
+  })}"
 
   filename = "${path.module}/issuer-letsencrypt-staging.yaml"
 }
@@ -85,14 +91,14 @@ resource "null_resource" "issuer_letsencrypt_staging" {
 
 resource "local_file" "issuer_letsencrypt" {
   content = "${templatefile("${path.module}/config/issuer-letsencrypt.yaml", {
-      letsencrypt_email = "${var.letsencrypt_email}"
-      azure_service_principal_id = "${var.azure_service_principal_id}"
-      azure_client_secret_key_name = "${kubernetes_secret.azure_client_secret.metadata.0.name}"
-      azure_subscription_id = "${var.azure_subscription_id}"
-      azure_tenant_id = "${var.azure_tenant_id}"
-      azure_resource_group_name = "${var.azure_resource_group_name}"
-      azure_zone_name = "${var.azure_zone_name}"
-    })}"
+    letsencrypt_email            = "${var.letsencrypt_email}"
+    azure_service_principal_id   = "${var.azure_service_principal_id}"
+    azure_client_secret_key_name = "${kubernetes_secret.azure_client_secret.metadata.0.name}"
+    azure_subscription_id        = "${var.azure_subscription_id}"
+    azure_tenant_id              = "${var.azure_tenant_id}"
+    azure_resource_group_name    = "${var.azure_resource_group_name}"
+    azure_zone_name              = "${var.azure_zone_name}"
+  })}"
 
   filename = "${path.module}/issuer-letsencrypt.yaml"
 }
