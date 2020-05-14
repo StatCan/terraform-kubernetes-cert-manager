@@ -1,4 +1,4 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt
@@ -12,12 +12,9 @@ spec:
       name: letsencrypt
 
     # ACME DNS-01 provider configurations
-    dns01:
-
+    solvers:
       # Here we define a list of DNS-01 providers that can solve DNS challenges
-      providers:
-
-        - name: azure-dns
+      - dns01:
           azuredns:
             clientID: ${ azure_service_principal_id }
             clientSecretSecretRef:
@@ -27,3 +24,6 @@ spec:
             tenantID: ${ azure_tenant_id }
             resourceGroupName: ${ azure_resource_group_name }
             hostedZoneZone: ${ azure_zone_name }
+        selector:
+          matchLabels:
+            'use-azuredns-solver': 'true'

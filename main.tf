@@ -29,8 +29,12 @@ resource "null_resource" "wait-dependencies" {
 
 
 resource "null_resource" "apply_crds" {
+  triggers = {
+    version = var.chart_version
+  }
+
   provisioner "local-exec" {
-    command = "kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/v${var.chart_version}/deploy/manifests/00-crds.yaml"
+    command = "kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v${var.chart_version}/cert-manager.crds.yaml"
   }
 
   depends_on = [
