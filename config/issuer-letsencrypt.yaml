@@ -23,7 +23,7 @@ spec:
             subscriptionID: ${ azure_subscription_id }
             tenantID: ${ azure_tenant_id }
             resourceGroupName: ${ azure_resource_group_name }
-            hostedZoneZone: ${ azure_zone_name }
+            hostedZoneName: ${ azure_zone_name }
         selector:
           matchLabels:
             'use-azuredns-solver': 'true'
