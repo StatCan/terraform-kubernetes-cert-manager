@@ -82,6 +82,10 @@ resource "local_file" "issuer_letsencrypt_staging" {
 
 
 resource "null_resource" "issuer_letsencrypt_staging" {
+  triggers = {
+    hash = sha256(local_file.issuer_letsencrypt_staging.content)
+  }
+
   provisioner "local-exec" {
     command = "kubectl apply -f ${local_file.issuer_letsencrypt_staging.filename}"
   }
@@ -109,6 +113,10 @@ resource "local_file" "issuer_letsencrypt" {
 
 
 resource "null_resource" "issuer_letsencrypt" {
+  triggers = {
+    hash = sha256(local_file.issuer_letsencrypt.content)
+  }
+
   provisioner "local-exec" {
     command = "kubectl apply -f ${local_file.issuer_letsencrypt.filename}"
   }
