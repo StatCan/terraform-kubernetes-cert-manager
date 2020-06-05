@@ -29,7 +29,6 @@ module "helm_cert_manager" {
     "${module.namespace_cert_manager.depended_on}",
   ]
 
-  helm_service_account = "tiller"
   helm_namespace = "${kubernetes_namespace.cert_manager.metadata.0.name}"
   helm_repository = "jetstack"
 
@@ -57,7 +56,6 @@ EOF
 | -------------------- | ------ | -------- | --------------------------------------------------- |
 | chart_version        | string | yes      | Version of the Helm Chart                           |
 | dependencies         | string | yes      | Dependency name refering to namespace module        |
-| helm_service_account | string | yes      | The service account for Helm to use                 |
 | helm_namespace       | string | yes      | The namespace Helm will install the chart under     |
 | helm_repository      | string | yes      | The repository where the Helm chart is stored       |
 | values               | list   | no       | Values to be passed to the Helm Chart               |
@@ -68,3 +66,4 @@ EOF
 | -------- | ---------- | ---------------------------------------------------------- |
 | 20190729 | 20190729.1 | Improvements to documentation and formatting               |
 | 20190909 | 20190909.1 | 1st release                                                |
+| 20200605 | v2.0.0     | Module now modified for Helm 3                             |
