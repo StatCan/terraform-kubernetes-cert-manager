@@ -74,3 +74,4 @@ EOF
 | 20190729 | 20190729.1 | Improvements to documentation and formatting |
 | 20190909 | 20190909.1 | 1st release                                  |
 | 20200620 | v2.0.0     | Module now modified for Helm 3               |
+| 20200622 | v2.0.1     | Added dependencies to kubernetes_secret      |

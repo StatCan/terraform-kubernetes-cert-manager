@@ -53,6 +53,10 @@ resource "kubernetes_secret" "azure_client_secret" {
   data = {
     CLIENT_SECRET = "${var.azure_client_secret}"
   }
+
+  depends_on = [
+    "null_resource.dependency_getter",
+  ]
 }
 
 resource "local_file" "issuer_letsencrypt_staging" {
