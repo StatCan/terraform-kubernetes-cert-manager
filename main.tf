@@ -32,7 +32,7 @@ resource "null_resource" "apply_crds" {
 }
 
 resource "helm_release" "cert_manager" {
-  depends_on = ["null_resource.wait-dependencies", "null_resource.dependency_getter", "null_resource.apply_crds"]
+  depends_on = ["null_resource.dependency_getter", "null_resource.apply_crds"]
   name       = "cert-manager"
   repository = "${var.helm_repository}"
   chart      = "cert-manager"
