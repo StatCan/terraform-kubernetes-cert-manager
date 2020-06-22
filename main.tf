@@ -17,17 +17,6 @@ resource "null_resource" "dependency_getter" {
   }
 }
 
-resource "null_resource" "wait-dependencies" {
-  provisioner "local-exec" {
-    command = "helm ls --tiller-namespace ${var.helm_namespace}"
-  }
-
-  depends_on = [
-    "null_resource.dependency_getter",
-  ]
-}
-
-
 resource "null_resource" "apply_crds" {
   triggers = {
     version = var.chart_version
@@ -43,7 +32,7 @@ resource "null_resource" "apply_crds" {
 }
 
 resource "helm_release" "cert_manager" {
-  depends_on = ["null_resource.wait-dependencies", "null_resource.dependency_getter", "null_resource.apply_crds"]
+  depends_on = ["null_resource.dependency_getter", "null_resource.apply_crds"]
   name       = "cert-manager"
   repository = "${var.helm_repository}"
   chart      = "cert-manager"

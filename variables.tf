@@ -1,9 +1,10 @@
-variable "helm_service_account" {}
 variable "helm_namespace" {}
-
 variable "helm_repository" {}
-
 variable "chart_version" {}
+variable "values" {
+  default = ""
+  type    = "string"
+}
 
 variable "letsencrypt_email" {}
 variable "azure_service_principal_id" {}
@@ -15,9 +16,4 @@ variable "azure_zone_name" {}
 
 variable "dependencies" {
   type = "list"
-}
-
-variable "values" {
-  default = ""
-  type    = "string"
 }
