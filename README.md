@@ -75,3 +75,4 @@ EOF
 | 20190909 | 20190909.1 | 1st release                                  |
 | 20200620 | v2.0.0     | Module now modified for Helm 3               |
 | 20200622 | v2.0.1     | Added dependencies to kubernetes_secret      |
+| 20201105 | v2.0.2     | Add registry username/password support       |
