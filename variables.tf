@@ -1,5 +1,7 @@
 variable "helm_namespace" {}
 variable "helm_repository" {}
+variable "helm_repository_username" {}
+variable "helm_repository_password" {}
 variable "chart_version" {}
 variable "values" {
   default = ""
