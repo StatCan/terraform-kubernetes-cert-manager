@@ -44,7 +44,7 @@ resource "kubernetes_secret" "azure_client_secret" {
   }
 
   data = {
-    CLIENT_SECRET = "${var.azure_client_secret}"
+    CLIENT_SECRET = var.azure_client_secret
   }
 
   depends_on = [
