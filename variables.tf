@@ -1,21 +1,28 @@
-variable "helm_namespace" {}
-variable "helm_repository" {}
-variable "helm_repository_username" {}
-variable "helm_repository_password" {}
-variable "chart_version" {}
-variable "values" {
-  default = ""
-  type    = "string"
+variable "helm_namespace" {
+  default = "cert-manager-system"
 }
 
-variable "letsencrypt_email" {}
-variable "azure_service_principal_id" {}
-variable "azure_client_secret" {}
-variable "azure_subscription_id" {}
-variable "azure_tenant_id" {}
-variable "azure_resource_group_name" {}
-variable "azure_zone_name" {}
+variable "helm_repository" {
+  default = "https://charts.jetstack.io"
+}
 
-variable "dependencies" {
-  type = "list"
+variable "helm_repository_username" {
+  default = ""
+}
+
+variable "helm_repository_password" {
+  default = ""
+}
+
+variable "chart_version" {
+  default = "1.2.0"
+}
+
+variable "chart_name" {
+  default = "cert-manager"
+}
+
+variable "values" {
+  default = ""
+  type    = string
 }

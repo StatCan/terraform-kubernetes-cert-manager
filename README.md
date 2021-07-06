@@ -52,20 +52,15 @@ EOF
 
 ## Variables Values
 
-| Name                       | Type   | Required | Value                                                |
-| -------------------------- | ------ | -------- | ---------------------------------------------------- |
-| chart_version              | string | yes      | Version of the Helm Chart                            |
-| dependencies               | string | yes      | Dependency name refering to namespace module         |
-| helm_namespace             | string | yes      | The namespace Helm will install the chart under      |
-| helm_repository            | string | yes      | The repository where the Helm chart is stored        |
-| values                     | string | no       | Values to be passed to the Helm Chart                |
-| letsencrypt_email          | string | yes      | Email for letsencrypt                                |
-| azure_service_principal_id | string | yes      | ClientID of the principal to use for azuredns solver |
-| azure_client_secret        | string | yes      | The client secret for the principal used             |
-| azure_subscription_id      | string | yes      | The Azure Subsription ID of the azuredns             |
-| azure_tenant_id            | string | yes      | The Azure Tenant ID of the azuredns                  |
-| azure_resource_group_name  | string | yes      | The Resource Group of the azuredns                   |
-| azure_zone_name            | string | yes      | The Zone Name in which the azuredns resides          |
+| Name                     | Type   | Required | Value                                           |
+|--------------------------|--------|----------|-------------------------------------------------|
+| chart_version            | string | no       | Version of the Helm Chart                       |
+| chart_name               | string | no       | Name of the Helm Chart                          |
+| helm_namespace           | string | no       | The namespace Helm will install the chart under |
+| helm_repository          | string | no       | The repository where the Helm chart is stored   |
+| helm_repository_username | string | no       | Username to access the Helm repository          |
+| helm_repository_password | string | no       | Password to access the Helm repository          |
+| values                   | string | no       | Values to be passed to the Helm Chart           |
 
 ## History
 
