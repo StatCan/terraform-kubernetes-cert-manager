@@ -22,14 +22,14 @@ The following security controls can be met through configuration of this templat
 
 ```terraform
 module "helm_cert_manager" {
-  source = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v2.0.0"
+  source = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v3.0.0"
 
   chart_version = "0.8.1"
-  dependencies  = [
-    module.namespace_cert_manager.depended_on,
+  depends_on  = [
+    module.namespace_cert_manager,
   ]
 
-  helm_namespace  = kubernetes_namespace.cert_manager.metadata.0.name
+  helm_namespace  = module.namespace_cert_manager.name
   helm_repository = "jetstack"
 
   letsencrypt_email            = var.cert_manager_letsencrypt_email
@@ -55,7 +55,6 @@ EOF
 | Name                       | Type   | Required | Value                                                |
 | -------------------------- | ------ | -------- | ---------------------------------------------------- |
 | chart_version              | string | yes      | Version of the Helm Chart                            |
-| dependencies               | string | yes      | Dependency name refering to namespace module         |
 | helm_namespace             | string | yes      | The namespace Helm will install the chart under      |
 | helm_repository            | string | yes      | The repository where the Helm chart is stored        |
 | values                     | string | no       | Values to be passed to the Helm Chart                |
@@ -77,3 +76,4 @@ EOF
 | 20200622 | v2.0.1     | Added dependencies to kubernetes_secret      |
 | 20201105 | v2.0.2     | Add registry username/password support       |
 | 20210114 | v2.0.3     | Removed interpolation syntax                 |
+| 20210826 | v3.0.0     | Updated module for Terraform v0.13           |
