@@ -15,7 +15,7 @@ variable "helm_repository_password" {
 }
 
 variable "chart_version" {
-  default = "1.2.0"
+  default = "1.6.2"
 }
 
 variable "chart_name" {
