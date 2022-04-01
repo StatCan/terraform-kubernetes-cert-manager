@@ -16,12 +16,7 @@ spec:
       # Here we define a list of DNS-01 providers that can solve DNS challenges
       - dns01:
           azuredns:
-            clientID: ${ azure_service_principal_id }
-            clientSecretSecretRef:
-              name: ${ azure_client_secret_key_name }
-              key: CLIENT_SECRET
             subscriptionID: ${ azure_subscription_id }
-            tenantID: ${ azure_tenant_id }
             resourceGroupName: ${ azure_resource_group_name }
             hostedZoneName: ${ azure_zone_name }
         selector:
