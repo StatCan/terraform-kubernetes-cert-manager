@@ -22,7 +22,7 @@ The following security controls can be met through configuration of this templat
 
 ```terraform
 module "helm_cert_manager" {
-  source = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v3.0.0"
+  source = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v4.0.0"
 
   chart_version = "0.8.1"
   depends_on  = [
@@ -33,10 +33,7 @@ module "helm_cert_manager" {
   helm_repository = "jetstack"
 
   letsencrypt_email            = var.cert_manager_letsencrypt_email
-  azure_service_principal_id   = var.cert_manager_azure_service_principal_id
-  azure_client_secret          = var.cert_manager_azure_client_secret
   azure_subscription_id        = var.cert_manager_azure_subscription_id
-  azure_tenant_id              = var.cert_manager_azure_tenant_id
   azure_resource_group_name    = var.cert_manager_azure_resource_group_name
   azure_zone_name              = var.cert_manager_azure_zone_name
 
@@ -59,10 +56,7 @@ EOF
 | helm_repository            | string | yes      | The repository where the Helm chart is stored        |
 | values                     | string | no       | Values to be passed to the Helm Chart                |
 | letsencrypt_email          | string | yes      | Email for letsencrypt                                |
-| azure_service_principal_id | string | yes      | ClientID of the principal to use for azuredns solver |
-| azure_client_secret        | string | yes      | The client secret for the principal used             |
 | azure_subscription_id      | string | yes      | The Azure Subsription ID of the azuredns             |
-| azure_tenant_id            | string | yes      | The Azure Tenant ID of the azuredns                  |
 | azure_resource_group_name  | string | yes      | The Resource Group of the azuredns                   |
 | azure_zone_name            | string | yes      | The Zone Name in which the azuredns resides          |
 
@@ -77,3 +71,4 @@ EOF
 | 20201105 | v2.0.2     | Add registry username/password support       |
 | 20210114 | v2.0.3     | Removed interpolation syntax                 |
 | 20210826 | v3.0.0     | Updated module for Terraform v0.13           |
+| 20220401 | v4.0.0     | Updated module to allow use of MSI           |
