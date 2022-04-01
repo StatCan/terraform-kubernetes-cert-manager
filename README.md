@@ -72,3 +72,4 @@ EOF
 | 20210114 | v2.0.3     | Removed interpolation syntax                 |
 | 20210826 | v3.0.0     | Updated module for Terraform v0.13           |
 | 20220401 | v4.0.0     | Updated module to allow use of MSI           |
+| 20220401 | v4.0.1     | Updated module to cert-manager.io/v1         |
