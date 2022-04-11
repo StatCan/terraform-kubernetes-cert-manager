@@ -49,16 +49,15 @@ EOF
 
 ## Variables Values
 
-| Name                       | Type   | Required | Value                                                |
-| -------------------------- | ------ | -------- | ---------------------------------------------------- |
-| chart_version              | string | yes      | Version of the Helm Chart                            |
-| helm_namespace             | string | yes      | The namespace Helm will install the chart under      |
-| helm_repository            | string | yes      | The repository where the Helm chart is stored        |
-| values                     | string | no       | Values to be passed to the Helm Chart                |
-| letsencrypt_email          | string | yes      | Email for letsencrypt                                |
-| azure_subscription_id      | string | yes      | The Azure Subsription ID of the azuredns             |
-| azure_resource_group_name  | string | yes      | The Resource Group of the azuredns                   |
-| azure_zone_name            | string | yes      | The Zone Name in which the azuredns resides          |
+| Name                     | Type   | Required | Value                                           |
+|--------------------------|--------|----------|-------------------------------------------------|
+| chart_version            | string | no       | Version of the Helm Chart                       |
+| chart_name               | string | no       | Name of the Helm Chart                          |
+| helm_namespace           | string | no       | The namespace Helm will install the chart under |
+| helm_repository          | string | no       | The repository where the Helm chart is stored   |
+| helm_repository_username | string | no       | Username to access the Helm repository          |
+| helm_repository_password | string | no       | Password to access the Helm repository          |
+| values                   | string | no       | Values to be passed to the Helm Chart           |
 
 ## History
 
@@ -73,3 +72,4 @@ EOF
 | 20210826 | v3.0.0     | Updated module for Terraform v0.13           |
 | 20220401 | v4.0.0     | Updated module to allow use of MSI           |
 | 20220401 | v4.0.1     | Updated module to cert-manager.io/v1         |
+| 20220411 | v5.0.0     | Convert module to k8s manifest resource      |
