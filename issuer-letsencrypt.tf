@@ -16,6 +16,7 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt" {
         "solvers" = [
           {
             "dns01" = {
+              "cnameStrategy" = "Follow"
               "azureDNS" = {
                 "hostedZoneName"    = var.azure_zone_name
                 "resourceGroupName" = var.azure_resource_group_name
