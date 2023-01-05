@@ -28,6 +28,12 @@ variable "values" {
   type    = string
 }
 
+variable "enable_prometheusrules" {
+  type        = bool
+  default     = true
+  description = "Adds PrometheusRules for cert-manager alerts"
+}
+
 # Configuration
 variable "letsencrypt_email" {}
 variable "azure_subscription_id" {}
