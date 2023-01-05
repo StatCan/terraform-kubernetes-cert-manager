@@ -3,7 +3,8 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
     "apiVersion" = "cert-manager.io/v1"
     "kind"       = "ClusterIssuer"
     "metadata" = {
-      "name" = "letsencrypt-staging"
+      "name"   = "letsencrypt-staging"
+      "labels" = local.common_labels
     }
     "spec" = {
       "acme" = {
