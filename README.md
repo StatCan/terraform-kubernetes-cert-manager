@@ -76,3 +76,4 @@ EOF
 | 20220411 | v5.0.0     | Convert module to k8s manifest resource                    |
 | 20220721 | v5.1.0     | Set the cnameStrategy to "Follow" for the DNS01 solver.    |
 | 20230105 | v5.2.0     | Added cert manager rules from kube-prometheus-stack        |
+| 20230109 | v5.3.0     | Add runbook links to Prometheus rules                      |
