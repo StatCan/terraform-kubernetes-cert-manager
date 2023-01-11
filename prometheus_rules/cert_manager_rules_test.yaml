@@ -25,6 +25,7 @@ tests:
               scope: cluster
             exp_annotations:
               message: 'The cert-manager certificate named gateway-renamer-mutating-webhook is failing to renew'
+              runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagercertfailingtorenew"
 # TC 2
 
   - interval: 1m
@@ -91,6 +92,7 @@ tests:
               scope: cluster
             exp_annotations:
               message: 'The cert-manager certificate named gateway-renamer-mutating-webhook has a ready status that is not true and the current date has not passed the renewal date of the certificate'
+              runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagercertfailure"
 
 # TC 6
 
@@ -137,6 +139,7 @@ tests:
               scope: cluster
             exp_annotations:
               message: 'The cert-manager certificate named gateway-renamer-mutating-webhook has expired.'
+              runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagercertexpired"
 
 # TC 9
 
@@ -165,6 +168,7 @@ tests:
               job: cert-manager
             exp_annotations:
               message: 'cert-manager has disappeared from Prometheus service discovery. New certificates will not be able to be minted, and existing ones cannot be renewed until cert-manager is back.'
+              runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagerabsent"
 
 # TC 11
 
@@ -196,6 +200,7 @@ tests:
               host: rate-limited.acme-v02.api.letsencrypt.org
             exp_annotations:
               message: 'Cert manager hitting LetsEncrypt rate limits. Depending on the rate limit, cert-manager may be unable to generate certificates for up to a week. The rate is: 0.013333333333333334'
+              runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagerhittingratelimits"
 
 # TC 13
 

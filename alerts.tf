@@ -11,6 +11,8 @@ resource "kubernetes_manifest" "prometheusrule_cert_manager_alerts" {
         "rules-definition" = "https://gitlab.k8s.cloud.statcan.ca/cloudnative/terraform/modules/terraform-kubernetes-cert-manager/-/tree/master/prometheus_rules/cert_manager_rules.yaml"
       }
     }
-    "spec" = yamldecode(file("${path.module}/prometheus_rules/cert_manager_rules.yaml"))
+    "spec" = yamldecode(templatefile("${path.module}/prometheus_rules/cert_manager_rules.yaml", {
+      runbook_base_url = local.runbook_base_url
+    }))
   }
 }
