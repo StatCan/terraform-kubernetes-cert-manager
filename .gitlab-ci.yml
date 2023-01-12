@@ -6,5 +6,7 @@ include:
     ref: v1.X
     file: .prometheus.gitlab-ci.yml
 
-# Documentation: https://gitlab.k8s.cloud.statcan.ca/cloudnative/gitlab/gitlabci/terraform
-# Support: https://gitlab.k8s.cloud.statcan.ca/cloudnative/gitlab/gitlabci/terraform#contribution-and-support
+stages:
+  - validate
+  - test 
+  - standardize style
