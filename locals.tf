@@ -1,6 +1,6 @@
 locals {
   # The curent version of the release.
-  version = "v5.4.0"
+  version = "v5.4.1"
   # The name of this module.
   app_name = "terraform-kubernetes-cert-manager"
 

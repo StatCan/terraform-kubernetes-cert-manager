@@ -8,8 +8,6 @@ tests:
 
   - interval: 1m
     input_series:
-      - series: certmanager_certificate_ready_status{condition="True", name="gateway-renamer-mutating-webhook"}
-        values: 0+0x10
       - series: certmanager_certificate_renewal_timestamp_seconds{name="gateway-renamer-mutating-webhook",namespace="ingress-general-system"}
         values: 0+0x10 # Jan. 1st 1970
       - series: certmanager_certificate_expiration_timestamp_seconds{name="gateway-renamer-mutating-webhook", namespace="ingress-general-system"}
@@ -30,8 +28,6 @@ tests:
 
   - interval: 1m
     input_series:
-      - series: certmanager_certificate_ready_status{condition="True", name="gateway-renamer-mutating-webhook"}
-        values: 0+0x10
       - series: certmanager_certificate_renewal_timestamp_seconds{name="gateway-renamer-mutating-webhook",namespace="ingress-general-system"}
         values: 0+0x10 # Jan. 1st 1970
       - series: certmanager_certificate_expiration_timestamp_seconds{name="gateway-renamer-mutating-webhook", namespace="ingress-general-system"}
@@ -45,8 +41,6 @@ tests:
 
   - interval: 1m
     input_series:
-      - series: certmanager_certificate_ready_status{condition="True", name="gateway-renamer-mutating-webhook"}
-        values: 0+0x10
       - series: certmanager_certificate_renewal_timestamp_seconds{name="gateway-renamer-mutating-webhook",namespace="ingress-general-system"}
         values: 4000000000+0x10 # October 2 2096
       - series: certmanager_certificate_expiration_timestamp_seconds{name="gateway-renamer-mutating-webhook", namespace="ingress-general-system"}
@@ -58,22 +52,6 @@ tests:
         exp_alerts: []
 
 # TC 4
-
-  - interval: 1m
-    input_series:
-      - series: certmanager_certificate_ready_status{condition="True", name="gateway-renamer-mutating-webhook"}
-        values: 1+0x10
-      - series: certmanager_certificate_renewal_timestamp_seconds{name="gateway-renamer-mutating-webhook",namespace="ingress-general-system"}
-        values: 0+0x10 # Jan. 1st 1970
-      - series: certmanager_certificate_expiration_timestamp_seconds{name="gateway-renamer-mutating-webhook", namespace="ingress-general-system"}
-        values: 4000000000+0x10 # October 2 2096
-
-    alert_rule_test:
-      - eval_time: 11m
-        alertname: certManagerCertFailingToRenew
-        exp_alerts: []
-
-# TC 5
 
   - interval: 1m
     input_series:
@@ -94,7 +72,7 @@ tests:
               message: 'The cert-manager certificate named gateway-renamer-mutating-webhook has a ready status that is not true and the current date has not passed the renewal date of the certificate'
               runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagercertfailure"
 
-# TC 6
+# TC 5
 
   - interval: 1m
     input_series:
@@ -108,7 +86,7 @@ tests:
         alertname: certManagerCertFailure
         exp_alerts: []
 
-# TC 7
+# TC 6
 
   - interval: 1m
     input_series:
@@ -122,7 +100,7 @@ tests:
         alertname: certManagerCertFailure
         exp_alerts: []
 
-# TC 8
+# TC 7
 
   - interval: 1m
     input_series:
@@ -141,7 +119,7 @@ tests:
               message: 'The cert-manager certificate named gateway-renamer-mutating-webhook has expired.'
               runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagercertexpired"
 
-# TC 9
+# TC 8
 
   - interval: 1m
     input_series:
@@ -153,7 +131,7 @@ tests:
         alertname: certManagerCertExpired
         exp_alerts: []
 
-# TC 10
+# TC 9
 
   - interval: 1m
     input_series: # empty
@@ -170,7 +148,7 @@ tests:
               message: 'cert-manager has disappeared from Prometheus service discovery. New certificates will not be able to be minted, and existing ones cannot be renewed until cert-manager is back.'
               runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagerabsent"
 
-# TC 11
+# TC 10
 
   - interval: 1m
     input_series:
@@ -182,7 +160,7 @@ tests:
         alertname: certManagerAbsent
         exp_alerts: []
 
-# TC 12
+# TC 11
 
   - interval: 1m
     input_series:
@@ -202,7 +180,7 @@ tests:
               message: 'Cert manager hitting LetsEncrypt rate limits. Depending on the rate limit, cert-manager may be unable to generate certificates for up to a week. The rate is: 0.013333333333333334'
               runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagerhittingratelimits"
 
-# TC 13
+# TC 12
 
   - interval: 1m
     input_series:
