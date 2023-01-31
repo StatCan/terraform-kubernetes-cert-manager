@@ -1,7 +1,6 @@
 # Prometheus Certmanager Certificate Rules Testing Document
 
 ## Assumptions
-* The condition for the ready status will be changed to either unknown or false when the certificate attempts to renew and fails.
 * At any one moment, only **one** state (unknown, false, true) for the ready condition will have a value of one in the metrics.
 * If the state of the ready condition is **not** true, then the certificate is assumed to be dysfunctional.
 
@@ -14,34 +13,30 @@ promtool test rules tests/*.yaml
 
 ## Expression
 ```
-sum by (name) (certmanager_certificate_ready_status{condition="True"}==0) AND (sum by (name) (time() > certmanager_certificate_renewal_timestamp_seconds) ) AND (sum by (name) (time() < certmanager_certificate_expiration_timestamp_seconds))
+(sum by (name) (time() > certmanager_certificate_renewal_timestamp_seconds) ) AND (sum by (name) (time() < certmanager_certificate_expiration_timestamp_seconds))
 ```
 
 ## Description
 
-This alert should fire if the ready status of the certificate is **not** true and the current date has passed the renewal time but it has not yet passed the expiry time.
+This alert should fire if the current date has passed the renewal time but it has not yet passed the expiry time.
 
 ## Truth Table (MC/DC)
-|  Cond_1 	|  Cond_2 	|  Cond_3 	|  Result 	|   Test Case	|
-|-----------|-----------|-----------|-----------|---------------|
-|   T	    |   T	    |   T	    |   T	    |   	TC1     |
-|   T	    |   T	    |   F	    |   F	    |   	TC2     |
-|   T	    |   F	    |   T	    |   F	    |   	TC3     |
-|   F	    |   T	    |   T	    |   F   	|   	TC4     |
+|  Cond_1 	|  Cond_2 	|  Result 	|   Test Case	|
+|-----------|-----------|-----------|---------------|
+|   T	    |   T	    |   T	    |   	TC1     |
+|   T	    |   F	    |   F	    |   	TC2     |
+|   F	    |   T	    |   F	    |   	TC3     |
 
 ## TC1
 ### Input
-* Ready Status Condition = Not True (0)
 * Renewal Date = Jan 1st 1970
 * Expiry Date = Oct 2nd 2096
 
 ### Expected Output
 * Alert fires: certManagerCertFailingToRenew
 
-
 ## TC2
 ### Input
-* Ready Status Condition = Not True (0)
 * Renewal Date = Jan 1st 1970
 * Expiry Date = Jan 1st 1970
 
@@ -50,18 +45,7 @@ This alert should fire if the ready status of the certificate is **not** true an
 
 ## TC3
 ### Input
-* Ready Status Condition = Not True (0)
 * Renewal Date = Oct 2nd 2096
-* Expiry Date = Oct 2nd 2096
-
-### Expected Output
-* No alert fires
-
-
-## TC4
-### Input
-* Ready Status Condition = True (1)
-* Renewal Date = Jan 1st 1970
 * Expiry Date = Oct 2nd 2096
 
 ### Expected Output
@@ -80,12 +64,12 @@ This alert should fire if the ready status of the certificate is **not** true bu
 ## Truth Table (MC/DC)
 |  Cond_1 	|  Cond_2 	|   Result 	|   Test Case	|
 |-----------|-----------|-----------|---------------|
-|   T	    |   T	    |     T	    |   	TC5     |
-|   T	    |   F	    |     F	    |   	TC6     |
-|   F	    |   T	    |     F	    |   	TC7     |
+|   T	    |   T	    |     T	    |   	TC4     |
+|   T	    |   F	    |     F	    |   	TC5     |
+|   F	    |   T	    |     F	    |   	TC6     |
 
 
-## TC5
+## TC4
 ### Input
 * Ready Status Condition = Not True (0)
 * Renewal Date = Oct 2nd 2096
@@ -94,7 +78,7 @@ This alert should fire if the ready status of the certificate is **not** true bu
 * Alert fires: certManagerCertFailure
 
 
-## TC6
+## TC5
 ### Input
 * Ready Status Condition = Not True (0)
 * Renewal Date = Jan 1st 1970
@@ -102,7 +86,7 @@ This alert should fire if the ready status of the certificate is **not** true bu
 ### Expected Output
 * No alert fires
 
-## TC7
+## TC6
 ### Input
 * Ready Status Condition = True (1)
 * Renewal Date = Oct 2nd 2096
@@ -124,12 +108,12 @@ This alert should fire if the current date has exceeded the expiry date of the c
 ## Truth Table (MC/DC)
 |  Cond_1 	|    Result 	|   Test Case	|
 |-----------|---------------|---------------|
-|     T	    |   	T       |      TC8      |
-|     F	    |   	F       |      TC9      |
+|     T	    |   	T       |      TC7      |
+|     F	    |   	F       |      TC8      |
 
 
 
-## TC8
+## TC7
 ### Input
 * Expiry Date = Jan 1st 1970
 
@@ -137,7 +121,7 @@ This alert should fire if the current date has exceeded the expiry date of the c
 * Alert fires: certManagerCertExpired
 
 
-## TC9
+## TC8
 ### Input
 * Expiry Date = Oct 2nd 2096
 
@@ -160,11 +144,11 @@ This alert should fire if cert-manager has disappeared from Prometheus service d
 ## Truth Table (MC/DC)
 |  Cond_1 	|    Result 	|   Test Case	|
 |-----------|---------------|---------------|
-|     T	    |   	T       |      TC10     |
-|     F	    |   	F       |      TC11     |
+|     T	    |   	T       |      TC9      |
+|     F	    |   	F       |      TC10     |
 
 
-## TC10
+## TC9
 ### Input
 * Empty; No job
 
@@ -172,7 +156,7 @@ This alert should fire if cert-manager has disappeared from Prometheus service d
 * Alert fires: certManagerAbsent
 
 
-## TC11
+## TC10
 ### Input
 * Job exists
 
@@ -197,7 +181,7 @@ This alert fires if Cert manager is hitting LetsEncrypt rate limits. Depending o
 |     F	    |   	F       |     TC12      |
 
 
-## TC12
+## TC11
 ### Input
 * A metric with HTTP status 429 that has a rate of 0.133 from [5m, 10m]
 
@@ -205,7 +189,7 @@ This alert fires if Cert manager is hitting LetsEncrypt rate limits. Depending o
 * Alert fires: certManagerHittingRateLimits
 
 
-## TC13
+## TC12
 ### Input
 * A metric with HTTP status 429 that has a rate of 0 from [5m, 10m]
 

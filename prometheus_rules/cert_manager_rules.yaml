@@ -2,7 +2,7 @@
   - name: certmanager.rules
     rules:
     - alert: certManagerCertFailingToRenew
-      expr: sum by (name) (certmanager_certificate_ready_status{condition="True"}==0) AND (sum by (name) (time() > certmanager_certificate_renewal_timestamp_seconds) ) AND (sum by (name) (time() < certmanager_certificate_expiration_timestamp_seconds))
+      expr: (sum by (name) (time() > certmanager_certificate_renewal_timestamp_seconds) ) AND (sum by (name) (time() < certmanager_certificate_expiration_timestamp_seconds))
       for: 10m
       labels:
         severity: P1-Critical
