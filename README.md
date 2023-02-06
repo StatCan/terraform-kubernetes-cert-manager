@@ -34,7 +34,7 @@ This module deploys and configures Cert Manager inside a Kubernetes Cluster.
 
 ```terraform
 module "helm_cert_manager" {
-  source         = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v5.4.0"
+  source         = "github.com/canada-ca-terraform-modules/terraform-kubernetes-cert-manager?ref=v5.4.1"
   helm_namespace = module.namespace_cert_manager.name
 
   letsencrypt_email         = var.cert_manager_letsencrypt_email
@@ -66,20 +66,21 @@ EOF
 
 ## History
 
-| Date     | Release    | Change                                                               |
-|----------|------------|----------------------------------------------------------------------|
-| 20190729 | 20190729.1 | Improvements to documentation and formatting                         |
-| 20190909 | 20190909.1 | 1st release                                                          |
-| 20200620 | v2.0.0     | Module now modified for Helm 3                                       |
-| 20200622 | v2.0.1     | Added dependencies to kubernetes_secret                              |
-| 20201105 | v2.0.2     | Add registry username/password support                               |
-| 20210114 | v2.0.3     | Removed interpolation syntax                                         |
-| 20210826 | v3.0.0     | Updated module for Terraform v0.13                                   |
-| 20220401 | v4.0.0     | Updated module to allow use of MSI                                   |
-| 20220401 | v4.0.1     | Updated module to cert-manager.io/v1                                 |
-| 20220411 | v5.0.0     | Convert module to k8s manifest resource                              |
-| 20220721 | v5.1.0     | Set the cnameStrategy to "Follow" for the DNS01 solver               |
-| 20230105 | v5.2.0     | Added cert manager rules from kube-prometheus-stack                  |
-| 20230109 | v5.3.0     | Add runbook links to Prometheus rules                                |
-| 20230111 | v5.4.0     | Upgraded default chart-version to use latest cert-manager available  |
+| Date     | Release    | Change                                                     |
+|----------| -----------| -----------------------------------------------------------|
+| 20190729 | 20190729.1 | Improvements to documentation and formatting               |
+| 20190909 | 20190909.1 | 1st release                                                |
+| 20200620 | v2.0.0     | Module now modified for Helm 3                             |
+| 20200622 | v2.0.1     | Added dependencies to kubernetes_secret                    |
+| 20201105 | v2.0.2     | Add registry username/password support                     |
+| 20210114 | v2.0.3     | Removed interpolation syntax                               |
+| 20210826 | v3.0.0     | Updated module for Terraform v0.13                         |
+| 20220401 | v4.0.0     | Updated module to allow use of MSI                         |
+| 20220401 | v4.0.1     | Updated module to cert-manager.io/v1                       |
+| 20220411 | v5.0.0     | Convert module to k8s manifest resource                    |
+| 20220721 | v5.1.0     | Set the cnameStrategy to "Follow" for the DNS01 solver.    |
+| 20230105 | v5.2.0     | Added cert manager rules from kube-prometheus-stack        |
+| 20230109 | v5.3.0     | Add runbook links to Prometheus rules                      |
+| 20230111 | v5.4.0     | Upgraded default chart-version to use latest cert-manager available |
 | 20230130 | v5.4.1     | certManagerCertFailingToRenew alert no longer considers ready status |
+| 20230202 | v5.4.2     | Specify sensitive variables                                |
