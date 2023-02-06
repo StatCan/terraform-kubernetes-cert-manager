@@ -12,12 +12,15 @@ variable "helm_repository" {
 
 variable "helm_repository_username" {
   type        = string
+  nullable    = false
   description = "the helm repository username to use (IFF authentication is required by the repository)"
+  sensitive   = true
   default     = ""
 }
 
 variable "helm_repository_password" {
   type        = string
+  nullable    = false
   description = "the helm repository password to use (IFF authentication is required by the repository)"
   sensitive   = true
   default     = ""
@@ -54,7 +57,9 @@ variable "enable_prometheusrules" {
 
 variable "letsencrypt_email" {
   type        = string
+  nullable    = false
   description = "the email to associated with letsencrypt ACME account for generating/signing of certificates"
+  sensitive   = true
 }
 
 variable "azure_subscription_id" {
