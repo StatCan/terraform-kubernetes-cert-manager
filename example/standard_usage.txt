@@ -14,8 +14,4 @@ podDnsConfig:
     - 1.0.0.1
     - 8.8.8.8
 EOF
-
-  depends_on = [
-    module.namespace_cert_manager,
-  ]
 }

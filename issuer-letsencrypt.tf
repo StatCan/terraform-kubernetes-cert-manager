@@ -1,4 +1,6 @@
 resource "kubernetes_manifest" "clusterissuer_letsencrypt" {
+  count = var.deploy_cluster_issuers ? 1 : 0
+
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
     "kind"       = "ClusterIssuer"

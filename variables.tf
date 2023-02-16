@@ -76,3 +76,10 @@ variable "azure_zone_name" {
   type        = string
   description = "the name of the azureDNS zone to use for ACME configuration"
 }
+
+variable "deploy_cluster_issuers" {
+  type        = bool
+  description = "a boolean which determines if the cluster issuers for Let's Encrypt should be deployed"
+  default     = true
+  nullable    = false
+}
