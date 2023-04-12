@@ -150,7 +150,7 @@ This alert should fire if cert-manager has disappeared from Prometheus service d
 
 ## TC9
 ### Input
-* Empty; No job
+* Empty; No job; Only prometheus heartbeat signal
 
 ### Expected Output
 * Alert fires: certManagerAbsent

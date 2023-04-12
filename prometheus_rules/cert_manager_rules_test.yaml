@@ -135,6 +135,8 @@ tests:
 
   - interval: 1m
     input_series: # empty
+      - series: prometheus_heartbeat{cluster="k8s-cancentral-01-infratest"}
+        values: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 
     alert_rule_test:
       - eval_time: 10m
@@ -143,7 +145,7 @@ tests:
           - exp_labels:
               severity: P1-Critical
               scope: cluster
-              job: cert-manager
+              cluster: k8s-cancentral-01-infratest
             exp_annotations:
               message: 'cert-manager has disappeared from Prometheus service discovery. New certificates will not be able to be minted, and existing ones cannot be renewed until cert-manager is back.'
               runbook: "${runbook_base_url}/cluster-alert-runbooks/cert-manager/#alert-certmanagerabsent"
@@ -152,7 +154,7 @@ tests:
 
   - interval: 1m
     input_series:
-      - series: up{container="cert-manager", endpoint="2143", instance="11.112.1.120:2113", job="cert-manager", namespace="cert-manager", pod="cert-manager-53fsbdfd-jkxr5v", service="cert-manager"}
+      - series: up{container="cert-manager", endpoint="2143", instance="11.112.1.120:2113", job="cert-manager", namespace="cert-manager", pod="cert-manager-53fsbdfd-jkxr5v", service="cert-manager", cluster="k8s-cancentral-01-infratest"}
         values: 1+0x3
 
     alert_rule_test:
