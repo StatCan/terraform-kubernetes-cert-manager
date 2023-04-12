@@ -69,4 +69,4 @@ This module deploys and configures Cert Manager inside a Kubernetes Cluster.
 | 20230130 | v5.4.1     | certManagerCertFailingToRenew alert no longer considers ready status     |
 | 20230202 | v5.4.2     | Specify sensitive variables                                              |
 | 20230213 | v5.5.0     | Add a flag to enable issuers                                             |
-| 20230411 | v5.5.1     | Add "cluster" to aggregation for alerting rules for thanos compatibility |
+| 20230411 | v5.6.0     | Add "cluster" to aggregation for alerting rules for thanos compatibility |
